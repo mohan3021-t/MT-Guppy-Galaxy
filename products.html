@@ -2,17 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Mobile-first meta tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MT Guppy Galaxy - Products</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <!-- GSAP CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   </head>
   <body>
-    <!-- Sticky Header with Dark Mode Toggle -->
+    <!-- Header -->
     <header>
       <div class="container header-container">
+        <!-- Logo -->
         <div class="logo">
-          <h1>MT Guppy Galaxy</h1>
+          <img class="logo-img" src="images/logo.png" alt="Logo" />
+          <span class="logo-text">MT Guppy Galaxy</span>
         </div>
         <nav>
           <ul>
@@ -27,28 +32,44 @@
         </nav>
       </div>
     </header>
-
+    
     <!-- Products Section -->
     <section class="products-section">
       <div class="container">
         <h2 class="section-title">Our Guppies</h2>
+        <!-- Filter, Search & Sort Bar -->
+        <div class="filter-bar">
+          <input type="text" id="searchInput" placeholder="Search products…" />
+          <select id="sortSelect">
+            <option value="">Sort by</option>
+            <option value="priceAsc">Price: Low to High</option>
+            <option value="priceDesc">Price: High to Low</option>
+          </select>
+          <select id="filterSelect">
+            <option value="">Filter by Category</option>
+            <option value="Elegant">Elegant</option>
+            <option value="Vibrant">Vibrant</option>
+            <option value="Rare">Rare</option>
+          </select>
+        </div>
+        
         <div class="product-grid">
           <!-- Product Card 1 -->
-          <div class="product-card" data-title="Elegant Guppy" data-price="300">
+          <div class="product-card" data-title="Elegant Guppy" data-price="300" data-category="Elegant">
             <img src="images/guppy1.jpg" alt="Elegant Guppy" />
             <h3>Elegant Guppy</h3>
             <p>Price: ₹300</p>
             <button class="btn add-to-cart">Add to Cart</button>
           </div>
           <!-- Product Card 2 -->
-          <div class="product-card" data-title="Vibrant Guppy" data-price="400">
+          <div class="product-card" data-title="Vibrant Guppy" data-price="400" data-category="Vibrant">
             <img src="images/guppy2.jpg" alt="Vibrant Guppy" />
             <h3>Vibrant Guppy</h3>
             <p>Price: ₹400</p>
             <button class="btn add-to-cart">Add to Cart</button>
           </div>
           <!-- Product Card 3 -->
-          <div class="product-card" data-title="Rare Guppy" data-price="500">
+          <div class="product-card" data-title="Rare Guppy" data-price="500" data-category="Rare">
             <img src="images/guppy3.jpg" alt="Rare Guppy" />
             <h3>Rare Guppy</h3>
             <p>Price: ₹500</p>
@@ -57,14 +78,20 @@
         </div>
       </div>
     </section>
-
+    
     <!-- Footer -->
     <footer>
       <div class="container">
+        <div class="footer-logo">
+          <div class="logo">
+            <img class="logo-img" src="images/logo.png" alt="Logo" />
+            <span class="logo-text">MT Guppy Galaxy</span>
+          </div>
+        </div>
         <p>© 2025 MT Guppy Galaxy. All Rights Reserved.</p>
       </div>
     </footer>
-
+    
     <script src="script.js"></script>
   </body>
 </html>

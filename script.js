@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Remove loader after page load
+  // Remove Loader after page load
   const loader = document.getElementById("loader");
   if (loader) {
     setTimeout(() => {
@@ -9,18 +9,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1000);
   }
 
-  // Dark Mode Toggle Implementation
+  // Dark Mode Toggle with Persistence via localStorage
   const toggleButton = document.getElementById("toggleMode");
   const currentTheme = localStorage.getItem("theme");
   if (currentTheme === "dark") {
     document.body.classList.add("dark-mode");
     if (toggleButton) toggleButton.textContent = "☀️";
   }
-
   if (toggleButton) {
     toggleButton.addEventListener("click", () => {
       document.body.classList.toggle("dark-mode");
-      let theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+      const theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
       localStorage.setItem("theme", theme);
       toggleButton.textContent = theme === "dark" ? "☀️" : "🌙";
     });
@@ -30,23 +29,20 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!sessionStorage.getItem("cart")) {
     sessionStorage.setItem("cart", JSON.stringify([]));
   }
-
-  // Helper functions for cart management
   const getCart = () => JSON.parse(sessionStorage.getItem("cart"));
   const updateCartStorage = (cart) =>
     sessionStorage.setItem("cart", JSON.stringify(cart));
 
-  // Update header cart count
+  // Update Cart Count in Header
   const updateCartCount = () => {
-    const cart = getCart();
     const cartCountElem = document.getElementById("cartCount");
     if (cartCountElem) {
-      cartCountElem.textContent = cart.length;
+      cartCountElem.textContent = getCart().length;
     }
   };
   updateCartCount();
 
-  // "Add to Cart" on Products page
+  // "Add to Cart" Functionality (Products Page)
   document.querySelectorAll(".add-to-cart").forEach((button) => {
     button.addEventListener("click", () => {
       const productCard = button.closest(".product-card");
@@ -63,7 +59,53 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // On Cart page: display cart items
+  // --- Search, Sort & Filter on Products Page ---
+  const searchInput = document.getElementById("searchInput");
+  const sortSelect = document.getElementById("sortSelect");
+  const filterSelect = document.getElementById("filterSelect");
+  const productGrid = document.querySelector(".product-grid");
+
+  function updateProductsDisplay() {
+    const searchValue = searchInput ? searchInput.value.toLowerCase() : "";
+    let productCards = Array.from(document.querySelectorAll(".product-card"));
+    
+    // Filter by search keyword
+    if (searchValue) {
+      productCards = productCards.filter((card) => {
+        const title = card.getAttribute("data-title").toLowerCase();
+        return title.includes(searchValue);
+      });
+    }
+    
+    // Filter by category
+    const filterValue = filterSelect ? filterSelect.value : "";
+    if (filterValue) {
+      productCards = productCards.filter((card) => {
+        const category = card.getAttribute("data-category");
+        return category === filterValue;
+      });
+    }
+    
+    // Sort by price
+    const sortValue = sortSelect ? sortSelect.value : "";
+    if (sortValue === "priceAsc") {
+      productCards.sort((a, b) => parseInt(a.getAttribute("data-price")) - parseInt(b.getAttribute("data-price")));
+    } else if (sortValue === "priceDesc") {
+      productCards.sort((a, b) => parseInt(b.getAttribute("data-price")) - parseInt(a.getAttribute("data-price")));
+    }
+    
+    // Update the product grid in the DOM
+    if (productGrid) {
+      productGrid.innerHTML = "";
+      productCards.forEach((card) => productGrid.appendChild(card));
+    }
+  }
+  
+  if (searchInput) searchInput.addEventListener("input", updateProductsDisplay);
+  if (sortSelect) sortSelect.addEventListener("change", updateProductsDisplay);
+  if (filterSelect) filterSelect.addEventListener("change", updateProductsDisplay);
+
+  // --- Display Cart Items on Cart Page ---
   const cartItemsElem = document.getElementById("cartItems");
   if (cartItemsElem) {
     const cart = getCart();
@@ -79,11 +121,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       cartItemsElem.innerHTML = "";
       cartItemsElem.appendChild(ul);
-
       document.querySelectorAll(".remove-btn").forEach((button) => {
         button.addEventListener("click", (e) => {
           const index = e.target.getAttribute("data-index");
-          const cart = getCart();
+          let cart = getCart();
           cart.splice(index, 1);
           updateCartStorage(cart);
           updateCartCount();
@@ -93,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Checkout functionality on Cart page
+  // ----- Checkout Functionality on Cart Page -----
   const checkoutBtn = document.getElementById("checkoutBtn");
   if (checkoutBtn) {
     checkoutBtn.addEventListener("click", () => {
@@ -110,13 +151,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Animate hero content on Home page using GSAP if available
+  // Animate Hero Content on Home Page via GSAP
   const heroContent = document.querySelector(".hero-content");
   if (heroContent && typeof gsap !== "undefined") {
     gsap.to(heroContent, { duration: 1.2, opacity: 1, y: 0, ease: "power2.out" });
   }
 
-  // Fade-in animations for container elements using IntersectionObserver & GSAP
+  // IntersectionObserver for Fade-In Effects on Containers using GSAP
   const faders = document.querySelectorAll(".container");
   const appearOptions = { threshold: 0.2 };
   const appearOnScroll = new IntersectionObserver((entries, observer) => {
