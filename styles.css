@@ -1,10 +1,32 @@
+/* CSS Variables for Light Mode */
+:root {
+  --primary-color: #003366;
+  --accent-color: #ff6600;
+  --text-color: #333;
+  --background-color: #f5f5f5;
+  --header-background: rgba(0, 51, 102, 0.9);
+  --btn-bg: #ff6600;
+  --btn-hover: #e65c00;
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+  --primary-color: #0d0d0d;
+  --accent-color: #ffaa00;
+  --text-color: #ccc;
+  --background-color: #1a1a1a;
+  --header-background: rgba(13, 13, 13, 0.95);
+  --btn-bg: #ffaa00;
+  --btn-hover: #e69900;
+}
+
 /* Base Styles */
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
-  background: #f5f5f5;
-  color: #333;
+  background: var(--background-color);
+  color: var(--text-color);
 }
 .container {
   width: 90%;
@@ -12,9 +34,34 @@ body {
   margin: 0 auto;
 }
 
+/* Loader Styles */
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+}
+.spinner {
+  border: 8px solid #ccc;
+  border-top: 8px solid var(--accent-color);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 /* Header */
 header {
-  background: rgba(0, 51, 102, 0.9);
+  background: var(--header-background);
   padding: 1rem 0;
   position: sticky;
   top: 0;
@@ -46,14 +93,21 @@ nav ul li a {
   transition: color 0.3s;
 }
 nav ul li a:hover {
-  color: #ff6600;
+  color: var(--accent-color);
+}
+/* Dark Mode Toggle Button */
+.mode-toggle {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
 /* Hero Section */
 .hero-section {
   position: relative;
   height: 80vh;
-  background: linear-gradient(-45deg, #1e3c72, #2a5298, #ff6600, #1e3c72);
+  background: linear-gradient(-45deg, #1e3c72, #2a5298, var(--accent-color), #1e3c72);
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
   display: flex;
@@ -80,30 +134,29 @@ nav ul li a:hover {
   z-index: 1;
   opacity: 0;
   transform: translateY(20px);
-  /* We'll fade this in with GSAP */
 }
 .hero-title {
   font-size: 3rem;
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 }
 .hero-subtitle {
   font-size: 1.5rem;
   margin-bottom: 2rem;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
 }
 .hero-btn {
   padding: 1rem 2rem;
-  background: #ff6600;
+  background: var(--btn-bg);
   border: none;
   border-radius: 30px;
   font-size: 1.2rem;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background 0.3s;
 }
 .hero-btn:hover {
-  background: #e65c00;
+  background: var(--btn-hover);
 }
 
 /* Products Section */
@@ -116,14 +169,14 @@ nav ul li a:hover {
   font-size: 2.5rem;
   margin-bottom: 2rem;
   position: relative;
-  color: #333;
+  color: var(--text-color);
 }
 .section-title::after {
   content: '';
   position: absolute;
   height: 3px;
   width: 100px;
-  background: #ff6600;
+  background: var(--accent-color);
   bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
@@ -152,7 +205,7 @@ nav ul li a:hover {
 .product-card h3 {
   margin: 1rem 0 0.5rem;
   font-size: 1.4rem;
-  color: #333;
+  color: var(--text-color);
 }
 .product-card p {
   margin-bottom: 1rem;
@@ -212,7 +265,7 @@ nav ul li a:hover {
 
 /* Footer */
 footer {
-  background: #003366;
+  background: var(--primary-color);
   color: #fff;
   text-align: center;
   padding: 1.5rem 0;

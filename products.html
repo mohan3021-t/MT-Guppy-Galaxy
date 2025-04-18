@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MT Guppy Galaxy - Products</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  </head>
+  <body>
+    <!-- Sticky Header with Dark Mode Toggle -->
+    <header>
+      <div class="container header-container">
+        <div class="logo">
+          <h1>MT Guppy Galaxy</h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li>
+              <button id="toggleMode" class="mode-toggle" title="Toggle Dark Mode">🌙</button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Products Section -->
+    <section class="products-section">
+      <div class="container">
+        <h2 class="section-title">Our Guppies</h2>
+        <div class="product-grid">
+          <!-- Product Card 1 -->
+          <div class="product-card" data-title="Elegant Guppy" data-price="300">
+            <img src="images/guppy1.jpg" alt="Elegant Guppy" />
+            <h3>Elegant Guppy</h3>
+            <p>Price: ₹300</p>
+            <button class="btn add-to-cart">Add to Cart</button>
+          </div>
+          <!-- Product Card 2 -->
+          <div class="product-card" data-title="Vibrant Guppy" data-price="400">
+            <img src="images/guppy2.jpg" alt="Vibrant Guppy" />
+            <h3>Vibrant Guppy</h3>
+            <p>Price: ₹400</p>
+            <button class="btn add-to-cart">Add to Cart</button>
+          </div>
+          <!-- Product Card 3 -->
+          <div class="product-card" data-title="Rare Guppy" data-price="500">
+            <img src="images/guppy3.jpg" alt="Rare Guppy" />
+            <h3>Rare Guppy</h3>
+            <p>Price: ₹500</p>
+            <button class="btn add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p>© 2025 MT Guppy Galaxy. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

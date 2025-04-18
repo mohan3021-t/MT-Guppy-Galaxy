@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MT Guppy Galaxy - Cart</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  </head>
+  <body>
+    <!-- Sticky Header with Dark Mode Toggle -->
+    <header>
+      <div class="container header-container">
+        <div class="logo">
+          <h1>MT Guppy Galaxy</h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li>
+              <button id="toggleMode" class="mode-toggle" title="Toggle Dark Mode">🌙</button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+      <div class="container">
+        <h2>Your Cart</h2>
+        <div id="cartItems">
+          <p>Your cart is empty.</p>
+        </div>
+        <button id="checkoutBtn" class="btn checkout-btn">Checkout</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p>© 2025 MT Guppy Galaxy. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

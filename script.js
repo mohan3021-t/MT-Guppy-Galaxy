@@ -1,5 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize cart in sessionStorage if not present
+  // Remove loader after page load
+  const loader = document.getElementById("loader");
+  if (loader) {
+    setTimeout(() => {
+      loader.style.opacity = "0";
+      loader.style.pointerEvents = "none";
+      setTimeout(() => loader.remove(), 500);
+    }, 1000);
+  }
+
+  // Dark Mode Toggle Implementation
+  const toggleButton = document.getElementById("toggleMode");
+  const currentTheme = localStorage.getItem("theme");
+  if (currentTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    if (toggleButton) toggleButton.textContent = "☀️";
+  }
+
+  if (toggleButton) {
+    toggleButton.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      let theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+      localStorage.setItem("theme", theme);
+      toggleButton.textContent = theme === "dark" ? "☀️" : "🌙";
+    });
+  }
+
+  // Initialize Cart in sessionStorage if not present
   if (!sessionStorage.getItem("cart")) {
     sessionStorage.setItem("cart", JSON.stringify([]));
   }
@@ -19,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   updateCartCount();
 
-  // "Add to Cart" functionality on Products page
+  // "Add to Cart" on Products page
   document.querySelectorAll(".add-to-cart").forEach((button) => {
     button.addEventListener("click", () => {
       const productCard = button.closest(".product-card");
@@ -29,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
       cart.push({ title, price });
       updateCartStorage(cart);
       updateCartCount();
-      // Optional GSAP animation on click (if GSAP is available)
       if (typeof gsap !== "undefined") {
         gsap.to(button, { scale: 1.2, duration: 0.2, yoyo: true, repeat: 1 });
       }
@@ -37,26 +63,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // On Cart Page: display cart items
+  // On Cart page: display cart items
   const cartItemsElem = document.getElementById("cartItems");
   if (cartItemsElem) {
     const cart = getCart();
-    if (cart.length === 0) {
+    if (!cart || cart.length === 0) {
       cartItemsElem.innerHTML = "<p>Your cart is empty.</p>";
     } else {
       const ul = document.createElement("ul");
       cart.forEach((item, index) => {
         const li = document.createElement("li");
-        li.innerHTML = `
-          ${item.title} - ₹${item.price} 
-          <button class="btn remove-btn" data-index="${index}">Remove</button>
-        `;
+        li.innerHTML = `${item.title} - ₹${item.price} 
+          <button class="btn remove-btn" data-index="${index}">Remove</button>`;
         ul.appendChild(li);
       });
       cartItemsElem.innerHTML = "";
       cartItemsElem.appendChild(ul);
 
-      // Remove cart item functionality
       document.querySelectorAll(".remove-btn").forEach((button) => {
         button.addEventListener("click", (e) => {
           const index = e.target.getAttribute("data-index");
@@ -70,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Checkout button functionality on Cart page
+  // Checkout functionality on Cart page
   const checkoutBtn = document.getElementById("checkoutBtn");
   if (checkoutBtn) {
     checkoutBtn.addEventListener("click", () => {
@@ -87,13 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Animate hero content on Home page using GSAP (if GSAP is loaded)
+  // Animate hero content on Home page using GSAP if available
   const heroContent = document.querySelector(".hero-content");
   if (heroContent && typeof gsap !== "undefined") {
     gsap.to(heroContent, { duration: 1.2, opacity: 1, y: 0, ease: "power2.out" });
   }
 
-  // Use IntersectionObserver + GSAP for fade-in animations on container elements
+  // Fade-in animations for container elements using IntersectionObserver & GSAP
   const faders = document.querySelectorAll(".container");
   const appearOptions = { threshold: 0.2 };
   const appearOnScroll = new IntersectionObserver((entries, observer) => {

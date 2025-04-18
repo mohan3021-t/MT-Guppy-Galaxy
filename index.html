@@ -4,11 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MT Guppy Galaxy - Home</title>
-    <!-- Link to shared CSS -->
     <link rel="stylesheet" href="styles.css" />
+    <!-- GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   </head>
   <body>
-    <!-- Sticky Header -->
+    <!-- Loader -->
+    <div id="loader" class="loader">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Sticky Header with Dark Mode Toggle -->
     <header>
       <div class="container header-container">
         <div class="logo">
@@ -20,18 +26,21 @@
             <li><a href="products.html">Products</a></li>
             <li><a href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
             <li><a href="contact.html">Contact</a></li>
+            <li>
+              <button id="toggleMode" class="mode-toggle" title="Toggle Dark Mode">🌙</button>
+            </li>
           </ul>
         </nav>
       </div>
     </header>
 
-    <!-- Hero Section with Animated Gradient Background -->
+    <!-- Hero Section with Animated Gradient & Parallax-Like Overlay -->
     <section id="hero" class="hero-section">
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <h2 class="hero-title">Dive Into a Galaxy of Guppies</h2>
         <p class="hero-subtitle">
-          Discover our exclusive, vibrant collection and find your aquatic treasure.
+          Discover our exclusive, vibrant collection. Your aquatic treasure awaits.
         </p>
         <a href="products.html" class="btn hero-btn">Shop Now</a>
       </div>
@@ -44,7 +53,6 @@
       </div>
     </footer>
 
-    <!-- Link to shared JavaScript -->
     <script src="script.js"></script>
   </body>
 </html>
