@@ -1,68 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <!-- Mobile-first meta tag -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MT Guppy Galaxy - Home</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" href="favicon.png" type="image/png" />
-    <!-- GSAP CDN for animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  </head>
-  <body>
-    <!-- Loader -->
-    <div id="loader" class="loader">
-      <div class="spinner"></div>
+<head>
+  <meta charset="UTF-8" />
+  <!-- Mobile-first meta tag -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MT Guppy Galaxy - Home</title>
+  <meta name="description" content="MT Guppy Galaxy is a futuristic, mobile-first online guppy store offering premium Elegant, Vibrant, and Rare guppies." />
+  <meta name="keywords" content="MT Guppy Galaxy, online guppy store, elegant guppy, vibrant guppy, rare guppy, aquarium, futuristic" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="MT Guppy Galaxy - Home" />
+  <meta property="og:description" content="Discover premium guppies for your aquarium at MT Guppy Galaxy." />
+  <meta property="og:image" content="images/hero.jpg" />
+  <meta property="og:url" content="http://example.com/index.html" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- GSAP for smooth animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader" class="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <!-- Logo: Using an image (if available) plus unified text -->
+      <div class="logo">
+        <img class="logo-img" src="images/logo.png" alt="Logo" />
+        <span class="logo-text">MT Guppy Galaxy</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
-    
-    <!-- Header -->
-    <header>
-      <div class="container header-container">
-        <!-- Logo: image (optional) and text. Adjust logo.png if available. -->
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h2 class="hero-title">Dive Into a Galaxy of Guppies</h2>
+      <p class="hero-subtitle">
+        Discover our exclusive, vibrant collection and find your aquatic treasure.
+      </p>
+      <a href="products.html" class="btn hero-btn">Shop Now</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo">
         <div class="logo">
           <img class="logo-img" src="images/logo.png" alt="Logo" />
           <span class="logo-text">MT Guppy Galaxy</span>
         </div>
-        <nav>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li>
-              <button id="toggleMode" class="mode-toggle" title="Toggle Dark Mode">🌙</button>
-            </li>
-          </ul>
-        </nav>
       </div>
-    </header>
-    
-    <!-- Hero Section -->
-    <section id="hero" class="hero-section">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h2 class="hero-title">Dive Into a Galaxy of Guppies</h2>
-        <p class="hero-subtitle">
-          Discover our exclusive, vibrant collection and find your aquatic treasure.
-        </p>
-        <a href="products.html" class="btn hero-btn">Shop Now</a>
-      </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="footer-logo">
-          <div class="logo">
-            <img class="logo-img" src="images/logo.png" alt="Logo" />
-            <span class="logo-text">MT Guppy Galaxy</span>
-          </div>
-        </div>
-        <p>© 2025 MT Guppy Galaxy. All Rights Reserved.</p>
-      </div>
-    </footer>
-    
-    <script src="script.js"></script>
-  </body>
+      <p>© 2025 MT Guppy Galaxy. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
 </html>

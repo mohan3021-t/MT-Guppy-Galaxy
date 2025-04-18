@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Remove Loader after page load
+  // Remove the loader after page load
   const loader = document.getElementById("loader");
   if (loader) {
     setTimeout(() => {
@@ -8,31 +8,14 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => loader.remove(), 500);
     }, 1000);
   }
-
-  // Dark Mode Toggle with Persistence via localStorage
-  const toggleButton = document.getElementById("toggleMode");
-  const currentTheme = localStorage.getItem("theme");
-  if (currentTheme === "dark") {
-    document.body.classList.add("dark-mode");
-    if (toggleButton) toggleButton.textContent = "☀️";
-  }
-  if (toggleButton) {
-    toggleButton.addEventListener("click", () => {
-      document.body.classList.toggle("dark-mode");
-      const theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
-      localStorage.setItem("theme", theme);
-      toggleButton.textContent = theme === "dark" ? "☀️" : "🌙";
-    });
-  }
-
-  // Initialize Cart in sessionStorage if not present
+  
+  // Initialize cart in sessionStorage if not already set
   if (!sessionStorage.getItem("cart")) {
     sessionStorage.setItem("cart", JSON.stringify([]));
   }
   const getCart = () => JSON.parse(sessionStorage.getItem("cart"));
-  const updateCartStorage = (cart) =>
-    sessionStorage.setItem("cart", JSON.stringify(cart));
-
+  const updateCartStorage = (cart) => sessionStorage.setItem("cart", JSON.stringify(cart));
+  
   // Update Cart Count in Header
   const updateCartCount = () => {
     const cartCountElem = document.getElementById("cartCount");
@@ -41,8 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
   updateCartCount();
-
-  // "Add to Cart" Functionality (Products Page)
+  
+  // "Add to Cart" functionality for Products Page with GSAP animation
   document.querySelectorAll(".add-to-cart").forEach((button) => {
     button.addEventListener("click", () => {
       const productCard = button.closest(".product-card");
@@ -58,13 +41,13 @@ document.addEventListener("DOMContentLoaded", () => {
       alert(`${title} added to cart!`);
     });
   });
-
+  
   // --- Search, Sort & Filter on Products Page ---
   const searchInput = document.getElementById("searchInput");
   const sortSelect = document.getElementById("sortSelect");
   const filterSelect = document.getElementById("filterSelect");
   const productGrid = document.querySelector(".product-grid");
-
+  
   function updateProductsDisplay() {
     const searchValue = searchInput ? searchInput.value.toLowerCase() : "";
     let productCards = Array.from(document.querySelectorAll(".product-card"));
@@ -86,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
     
-    // Sort by price
+    // Sort by price if applicable
     const sortValue = sortSelect ? sortSelect.value : "";
     if (sortValue === "priceAsc") {
       productCards.sort((a, b) => parseInt(a.getAttribute("data-price")) - parseInt(b.getAttribute("data-price")));
@@ -104,8 +87,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (searchInput) searchInput.addEventListener("input", updateProductsDisplay);
   if (sortSelect) sortSelect.addEventListener("change", updateProductsDisplay);
   if (filterSelect) filterSelect.addEventListener("change", updateProductsDisplay);
-
-  // --- Display Cart Items on Cart Page ---
+  
+  // --- Cart Page: Display Cart Items ---
   const cartItemsElem = document.getElementById("cartItems");
   if (cartItemsElem) {
     const cart = getCart();
@@ -133,8 +116,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
-
-  // ----- Checkout Functionality on Cart Page -----
+  
+  // Checkout functionality on Cart Page
   const checkoutBtn = document.getElementById("checkoutBtn");
   if (checkoutBtn) {
     checkoutBtn.addEventListener("click", () => {
@@ -150,14 +133,14 @@ document.addEventListener("DOMContentLoaded", () => {
       location.reload();
     });
   }
-
-  // Animate Hero Content on Home Page via GSAP
+  
+  // Animate hero content on Home Page using GSAP
   const heroContent = document.querySelector(".hero-content");
   if (heroContent && typeof gsap !== "undefined") {
     gsap.to(heroContent, { duration: 1.2, opacity: 1, y: 0, ease: "power2.out" });
   }
-
-  // IntersectionObserver for Fade-In Effects on Containers using GSAP
+  
+  // IntersectionObserver for fade-in effects on containers using GSAP
   const faders = document.querySelectorAll(".container");
   const appearOptions = { threshold: 0.2 };
   const appearOnScroll = new IntersectionObserver((entries, observer) => {
