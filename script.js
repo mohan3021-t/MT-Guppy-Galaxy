@@ -1,95 +1,109 @@
-// Simple cart simulation using an array
-let cart = [];
-
-// Function to update the cart display
-function updateCartDisplay() {
-  const cartItemsDiv = document.getElementById("cartItems");
-  cartItemsDiv.innerHTML = ""; // clear current content
-
-  if (cart.length === 0) {
-    cartItemsDiv.innerHTML = "<p>Your cart is currently empty.</p>";
-    return;
+document.addEventListener("DOMContentLoaded", () => {
+  // Initialize cart in sessionStorage if not present
+  if (!sessionStorage.getItem("cart")) {
+    sessionStorage.setItem("cart", JSON.stringify([]));
   }
 
-  // Create a list of items
-  const ul = document.createElement("ul");
-  cart.forEach((item, index) => {
-    const li = document.createElement("li");
-    li.textContent = `${item.name} - ₹${item.price}`;
-    // Optionally add a remove button for each cart item
-    const removeBtn = document.createElement("button");
-    removeBtn.textContent = "Remove";
-    removeBtn.className = "btn";
-    removeBtn.style.marginLeft = "1rem";
-    removeBtn.addEventListener("click", () => {
-      cart.splice(index, 1);
-      updateCartDisplay();
-    });
-    li.appendChild(removeBtn);
-    ul.appendChild(li);
-  });
+  // Helper functions for cart management
+  const getCart = () => JSON.parse(sessionStorage.getItem("cart"));
+  const updateCartStorage = (cart) =>
+    sessionStorage.setItem("cart", JSON.stringify(cart));
 
-  cartItemsDiv.appendChild(ul);
-}
-
-// Event listener for Add-to-Cart buttons
-document.querySelectorAll(".add-to-cart").forEach((button) => {
-  button.addEventListener("click", (e) => {
-    // Get product details from the parent card attributes
-    const productCard = e.target.closest(".product-card");
-    const id = productCard.getAttribute("data-id");
-    const name = productCard.getAttribute("data-name");
-    const price = parseInt(productCard.getAttribute("data-price"));
-
-    // Add to cart (for a real application, you may check if item already exists, etc.)
-    cart.push({ id, name, price });
-    updateCartDisplay();
-    alert(`${name} has been added to your cart!`);
-  });
-});
-
-// Checkout function using Razorpay
-document.getElementById("checkoutBtn").addEventListener("click", () => {
-  if (cart.length === 0) {
-    alert("Your cart is empty!");
-    return;
-  }
-
-  // Calculate total amount
-  const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
-
-  // Prepare Razorpay options.
-  // IMPORTANT: Replace YOUR_RAZORPAY_KEY with your actual Razorpay API key.
-  const options = {
-    key: "YOUR_RAZORPAY_KEY", // Enter your Razorpay API key here
-    amount: totalAmount * 100, // Razorpay accepts amount in paise
-    currency: "INR",
-    name: "MT Guppy Galaxy",
-    description: "Purchase of guppies",
-    // image: "https://yourdomain.com/logo.png", // optional: add your logo URL here
-    handler: function (response) {
-      // Handle successful payment here:
-      alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
-      // Clear the cart on success
-      cart = [];
-      updateCartDisplay();
-    },
-    prefill: {
-      // Optionally prefill customer details (if you have them)
-      name: "",
-      email: "",
-    },
-    notes: {
-      address: "Your Store Address",
-    },
-    theme: {
-      color: "#e94560",
-    },
+  // Update header cart count
+  const updateCartCount = () => {
+    const cart = getCart();
+    const cartCountElem = document.getElementById("cartCount");
+    if (cartCountElem) {
+      cartCountElem.textContent = cart.length;
+    }
   };
+  updateCartCount();
 
-  // Uncomment the following lines after including Razorpay's checkout.js script
-  // const rzp1 = new Razorpay(options);
-  // rzp1.open();
-  // For now, simulate a checkout process:
-  alert(`Initiating payment of ₹${totalAmount} (simulation).`);
+  // "Add to Cart" functionality on Products page
+  document.querySelectorAll(".add-to-cart").forEach((button) => {
+    button.addEventListener("click", () => {
+      const productCard = button.closest(".product-card");
+      const title = productCard.getAttribute("data-title");
+      const price = productCard.getAttribute("data-price");
+      const cart = getCart();
+      cart.push({ title, price });
+      updateCartStorage(cart);
+      updateCartCount();
+      // Optional GSAP animation on click (if GSAP is available)
+      if (typeof gsap !== "undefined") {
+        gsap.to(button, { scale: 1.2, duration: 0.2, yoyo: true, repeat: 1 });
+      }
+      alert(`${title} added to cart!`);
+    });
+  });
+
+  // On Cart Page: display cart items
+  const cartItemsElem = document.getElementById("cartItems");
+  if (cartItemsElem) {
+    const cart = getCart();
+    if (cart.length === 0) {
+      cartItemsElem.innerHTML = "<p>Your cart is empty.</p>";
+    } else {
+      const ul = document.createElement("ul");
+      cart.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          ${item.title} - ₹${item.price} 
+          <button class="btn remove-btn" data-index="${index}">Remove</button>
+        `;
+        ul.appendChild(li);
+      });
+      cartItemsElem.innerHTML = "";
+      cartItemsElem.appendChild(ul);
+
+      // Remove cart item functionality
+      document.querySelectorAll(".remove-btn").forEach((button) => {
+        button.addEventListener("click", (e) => {
+          const index = e.target.getAttribute("data-index");
+          const cart = getCart();
+          cart.splice(index, 1);
+          updateCartStorage(cart);
+          updateCartCount();
+          location.reload();
+        });
+      });
+    }
+  }
+
+  // Checkout button functionality on Cart page
+  const checkoutBtn = document.getElementById("checkoutBtn");
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", () => {
+      const cart = getCart();
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      const total = cart.reduce((sum, item) => sum + parseInt(item.price), 0);
+      alert(`Proceeding to checkout. Total amount: ₹${total}`);
+      updateCartStorage([]);
+      updateCartCount();
+      location.reload();
+    });
+  }
+
+  // Animate hero content on Home page using GSAP (if GSAP is loaded)
+  const heroContent = document.querySelector(".hero-content");
+  if (heroContent && typeof gsap !== "undefined") {
+    gsap.to(heroContent, { duration: 1.2, opacity: 1, y: 0, ease: "power2.out" });
+  }
+
+  // Use IntersectionObserver + GSAP for fade-in animations on container elements
+  const faders = document.querySelectorAll(".container");
+  const appearOptions = { threshold: 0.2 };
+  const appearOnScroll = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      if (typeof gsap !== "undefined") {
+        gsap.fromTo(entry.target, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 });
+      }
+      observer.unobserve(entry.target);
+    });
+  }, appearOptions);
+  faders.forEach((fader) => appearOnScroll.observe(fader));
 });

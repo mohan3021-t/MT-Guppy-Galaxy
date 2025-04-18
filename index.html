@@ -1,99 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MT Guppy Galaxy</title>
-  <!-- Google Fonts for modern typography -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-  <!-- Include your CSS -->
-  <link rel="stylesheet" href="styles.css" />
-  <!-- Razorpay Checkout (uncomment when ready to integrate) -->
-  <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
-</head>
-<body>
-  <!-- Header -->
-  <header>
-    <div class="container header-container">
-      <div class="logo">
-        <h1>MT Guppy Galaxy</h1>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#products">Products</a></li>
-          <li><a href="#cart">Cart</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Hero Section -->
-  <section id="hero" class="hero-section">
-    <div class="hero-content">
-      <h2>Dive into a Galaxy of Colorful Guppies</h2>
-      <p>Discover our exclusive collection of vibrant underwater companions.</p>
-      <a href="#products" class="btn">Explore Now</a>
-    </div>
-  </section>
-
-  <!-- Products Section -->
-  <section id="products" class="product-section">
-    <div class="section-title">
-      <h2>Our Guppies</h2>
-    </div>
-    <div class="product-list">
-      <!-- Product Card Example -->
-      <div class="product-card" data-id="1" data-name="Elegant Guppy" data-price="200">
-        <img src="images/guppy1.jpg" alt="Elegant Guppy" />
-        <div class="product-details">
-          <h3>Elegant Guppy</h3>
-          <p class="price">₹200</p>
-          <p class="description">A stunning guppy with shimmering scales.</p>
-          <button class="btn add-to-cart">Add to Cart</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MT Guppy Galaxy - Home</title>
+    <!-- Link to shared CSS -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Sticky Header -->
+    <header>
+      <div class="container header-container">
+        <div class="logo">
+          <h1>MT Guppy Galaxy</h1>
         </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
       </div>
-      <div class="product-card" data-id="2" data-name="Vibrant Guppy" data-price="250">
-        <img src="images/guppy2.jpg" alt="Vibrant Guppy" />
-        <div class="product-details">
-          <h3>Vibrant Guppy</h3>
-          <p class="price">₹250</p>
-          <p class="description">Bright colors and a playful personality.</p>
-          <button class="btn add-to-cart">Add to Cart</button>
-        </div>
+    </header>
+
+    <!-- Hero Section with Animated Gradient Background -->
+    <section id="hero" class="hero-section">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h2 class="hero-title">Dive Into a Galaxy of Guppies</h2>
+        <p class="hero-subtitle">
+          Discover our exclusive, vibrant collection and find your aquatic treasure.
+        </p>
+        <a href="products.html" class="btn hero-btn">Shop Now</a>
       </div>
-      <!-- Add more product cards as needed -->
-    </div>
-  </section>
+    </section>
 
-  <!-- Shopping Cart Section -->
-  <section id="cart" class="cart-section">
-    <h2>Your Shopping Cart</h2>
-    <div id="cartItems">
-      <p>Your cart is currently empty.</p>
-    </div>
-    <button id="checkoutBtn" class="btn">Checkout</button>
-  </section>
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p>© 2025 MT Guppy Galaxy. All Rights Reserved.</p>
+      </div>
+    </footer>
 
-  <!-- Contact Section -->
-  <section id="contact" class="contact-section">
-    <h2>Contact Us</h2>
-    <form id="contactForm">
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <textarea placeholder="Your Message" required></textarea>
-      <button type="submit" class="btn">Send Message</button>
-    </form>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 MT Guppy Galaxy. All rights reserved.</p>
-  </footer>
-
-  <!-- Include your JavaScript -->
-  <script src="script.js"></script>
-</body>
+    <!-- Link to shared JavaScript -->
+    <script src="script.js"></script>
+  </body>
 </html>
